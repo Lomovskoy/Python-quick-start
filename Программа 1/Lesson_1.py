@@ -13,7 +13,7 @@
 # Подключение модуля производится командой import.
 # Модуль os идет в комплекте с Python'ом.
 import os
-
+import sys
 # psutil - сторонний модуль, нужно установить через pip install psutil
 import psutil       
 
@@ -31,16 +31,21 @@ while True:
         print("Отлично, друг!")
         print("Я умею:")
         print(" [1] - выведу список файлов текущей директория")
-        print(" [2] - выведу информацию о системе")
-        print(" [3] - выведу список процессов")
+        print(" [2] - выведу текущую директорию")
+        print(" [3] - выведу список id процессов")
+        print(" [4] - выведу информацию об операционной системе")
         do = int(input("Укажите номер действия: "))
         
         if do == 1:
             print(os.listdir())
         elif do == 2:
-            pass
+            print(os.getcwd())
         elif do == 3:
             print(psutil.pids())
+        elif do == 4:
+            print(sys.platform)
+            print(os.name)
+            
         else:
             print("Введите цифру из списка!")
        
