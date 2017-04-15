@@ -26,7 +26,7 @@ name = input("Ваше имя: ")
 print(name, ", добро пожаловать в мир Python!")
 
 while True:
-    answer = input("Давайте поработаем? (Y/N)")
+    answer = input("Давайте поработаем? (Y/N) ")
          
     if answer == 'Y' or answer == 'y':
         print("Отлично, друг!")
@@ -35,7 +35,8 @@ while True:
         print("\t[2] - выведу информацию об операционной системе")
         print("\t[3] - выведу список id процессов")
         print("\t[4] - дублирую файлы в текущей директории")
-        
+        print("\t[5] - дублирую указанный файл")
+        print("\t[6] - удаляю дибликаты")
         do = int(input("Укажите номер действия: "))
         
         if do == 1:
@@ -51,11 +52,30 @@ while True:
             print(psutil.pids())
         elif do == 4:
             file_list = os.listdir()
-            for i in range(len(file_list)):
-                newfile = file_list[i] + '.dupl'
+            for f in file_list:
+                #Проверка является ли элемент файлом
+                if os.path.isfile(f):
+                    newfile = f + '.dupl'
+                    #копируем
+                    shutil.copy(f, newfile)
+        elif do == 5:
+            file_name = input("Введите имя файла и относительный путь до него (. - текущая): ")
+            #Проверка является ли элемент файлом
+            if os.path.isfile(file_name):
+                newfile = file_name + '.dupl'
                 #копируем
-                shutil.copy(file_list[i], newfile)
-            
+                shutil.copy(file_name, newfile)
+                
+        elif do == 6:
+            dirname = input("Укажите относительную директорию (. - текущая): ")# . текущая
+            file_list = os.listdir(dirname)
+            for f in file_list:
+                # join формирует имя файла в зависимости от операционной системы / \
+                file_name = os.path.join(dirname,f)
+                # проверка на окончение файла
+                if file_name.endswith('.dupl'):
+                    os.remove(file_name)#Удалить
+                
         else:
             print("Введите цифру из списка!")
        
