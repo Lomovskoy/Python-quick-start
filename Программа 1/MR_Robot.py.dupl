@@ -43,7 +43,7 @@ def sys_info():
     print("\tТекущая директория: ", os.getcwd())
     print("\tТекущий пользователь: ", os.getlogin())
 #Функция удалениябуликатов
-def delete():
+def delete(dirname):
     i = 0
     file_list = os.listdir(dirname)
     for f in file_list:
