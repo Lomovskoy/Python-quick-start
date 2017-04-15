@@ -18,8 +18,8 @@ import sys
 import psutil       
 
 
-print("Great Python Program!")
-print("Привет, программист!")
+print("\t\t\t\tРобот помошник Python")
+print("\t\t\t\tПривет, программист!")
 name = input("Ваше имя: ")
 
 print(name, ", добро пожаловать в мир Python!")
@@ -30,22 +30,23 @@ while True:
     if answer == 'Y' or answer == 'y':
         print("Отлично, друг!")
         print("Я умею:")
-        print(" [1] - выведу список файлов текущей директория")
-        print(" [2] - выведу текущую директорию")
-        print(" [3] - выведу список id процессов")
-        print(" [4] - выведу информацию об операционной системе")
+        print("\t[1] - выведу список файлов текущей директория")
+        print("\t[2] - выведу информацию об операционной системе")
+        print("\t[3] - выведу список id процессов")
+        
         do = int(input("Укажите номер действия: "))
         
         if do == 1:
             print(os.listdir())
         elif do == 2:
-            print(os.getcwd())
+            print("Вот, что я знаю о системе: ")
+            print("\tКоличество процессоров: ", psutil.cpu_count())
+            print("\tПлатформа: ", sys.platform)
+            print("\tКодировка файловой системы: ", sys.getfilesystemencoding())
+            print("\tТекущая директория: ", os.getcwd())
+            print("\tТекущий пользователь: ", os.getlogin())
         elif do == 3:
             print(psutil.pids())
-        elif do == 4:
-            print(sys.platform)
-            print(os.name)
-            
         else:
             print("Введите цифру из списка!")
        
