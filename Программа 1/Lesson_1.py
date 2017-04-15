@@ -11,15 +11,16 @@
 
 
 # Подключение модуля производится командой import.
-# Модуль os идет в комплекте с Python'ом.
+# Модули os,sys идут в комплекте с Python'ом.
 import os
 import sys
+import shutil
 # psutil - сторонний модуль, нужно установить через pip install psutil
 import psutil       
 
 
-print("\t\t\t\tРобот помошник Python")
-print("\t\t\t\tПривет, программист!")
+print("\t\tРобот помошник Python")
+print("\t\tПривет, программист!")
 name = input("Ваше имя: ")
 
 print(name, ", добро пожаловать в мир Python!")
@@ -33,6 +34,7 @@ while True:
         print("\t[1] - выведу список файлов текущей директория")
         print("\t[2] - выведу информацию об операционной системе")
         print("\t[3] - выведу список id процессов")
+        print("\t[4] - дублирую файлы в текущей директории")
         
         do = int(input("Укажите номер действия: "))
         
@@ -47,6 +49,13 @@ while True:
             print("\tТекущий пользователь: ", os.getlogin())
         elif do == 3:
             print(psutil.pids())
+        elif do == 4:
+            file_list = os.listdir()
+            for i in range(len(file_list)):
+                newfile = file_list[i] + '.dupl'
+                #копируем
+                shutil.copy(file_list[i], newfile)
+            
         else:
             print("Введите цифру из списка!")
        
