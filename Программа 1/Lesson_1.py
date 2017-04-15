@@ -44,7 +44,22 @@ def sys_info():
     print("\tТекущий пользователь: ", os.getlogin())
 #Функция удалениябуликатов
 def delete():
-    
+    i = 0
+    file_list = os.listdir(dirname)
+        for f in file_list:
+            # join формирует имя файла в зависимости от операционной системы / \
+            file_name = os.path.join(dirname,f)
+            # проверка на окончение файла
+            if file_name.endswith('.dupl'):
+                os.remove(file_name)#Удалить
+                #Проверка на удаление
+                if not os.path.exists(file_name):
+                    print("Файл ",file_name," удалён")
+                    i += 1
+                else:
+                    print("Проблема удаления")
+        return i
+                
 #----------------------------------------------------------------------------------------------
 print("\t\tРобот помошник Python")
 print("\t\tПривет, программист!")
@@ -74,14 +89,8 @@ while True:
             duplikate_file(file_name)          
         elif do == 6:
             dirname = input("Укажите относительную директорию (. - текущая): ")# . текущая
-            file_list = os.listdir(dirname)
-            for f in file_list:
-                # join формирует имя файла в зависимости от операционной системы / \
-                file_name = os.path.join(dirname,f)
-                # проверка на окончение файла
-                if file_name.endswith('.dupl'):
-                    os.remove(file_name)#Удалить
-                
+            samm = delete(dirname)
+            print("Файлов удалено - ", samm)
         else:
             print("Введите цифру из списка!")
         
