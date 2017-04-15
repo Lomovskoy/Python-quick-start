@@ -61,41 +61,43 @@ def delete():
         return i
                 
 #----------------------------------------------------------------------------------------------
-print("\t\tРобот помошник Python")
-print("\t\tПривет, программист!")
-name = input("Ваше имя: ")
+def main():
+    print("\t\tРобот помошник Python")
+    print("\t\tПривет, программист!")
+    name = input("Ваше имя: ")
 
-print(name, ", добро пожаловать в мир Python!")
+    print(name, ", добро пожаловать в мир Python!")
 
-while True:
-    answer = input("Давайте поработаем? (Y/N) ")
-         
-    if answer == 'Y' or answer == 'y':
-        
-        do = choice()
-        
-        if do == 1:
-            print(os.listdir())
-        elif do == 2:
-            sys_info()
-        elif do == 3:
-            print(psutil.pids())
-        elif do == 4:
-            file_list = os.listdir()
-            for f in file_list:
-                duplikate_file(f) 
-        elif do == 5:
-            file_name = input("Введите имя файла и относительный путь до него (. - текущая): ")
-            duplikate_file(file_name)          
-        elif do == 6:
-            dirname = input("Укажите относительную директорию (. - текущая): ")# . текущая
-            samm = delete(dirname)
-            print("Файлов удалено - ", samm)
+    while True:
+        answer = input("Давайте поработаем? (Y/N) ")
+             
+        if answer == 'Y' or answer == 'y':
+            
+            do = choice()
+            
+            if do == 1:
+                print(os.listdir())
+            elif do == 2:
+                sys_info()
+            elif do == 3:
+                print(psutil.pids())
+            elif do == 4:
+                file_list = os.listdir()
+                for f in file_list:
+                    duplikate_file(f) 
+            elif do == 5:
+                file_name = input("Введите имя файла и относительный путь до него (. - текущая): ")
+                duplikate_file(file_name)          
+            elif do == 6:
+                dirname = input("Укажите относительную директорию (. - текущая): ")# . текущая
+                samm = delete(dirname)
+                print("Файлов удалено - ", samm)
+            else:
+                print("Введите цифру из списка!")
+            
+        elif answer == 'N' or answer == 'n':    
+            print("До свидания!")
+            break
         else:
-            print("Введите цифру из списка!")
-        
-    elif answer == 'N' or answer == 'n':    
-        print("До свидания!")
-        break
-    else:
-        print("Неизвестный ответ")    
+            print("Неизвестный ответ")    
+
