@@ -1,10 +1,19 @@
 # coding: utf-8
 # Русская рулетка
 import turtle, random,math
-# Угол фи
-PHI = 360 / 7
-#Радиус новых окружностей
-RAD = 50
+
+PHI = 360 / 7# Угол фи
+RAD = 50#Радиус новых окружностей
+turtle.speed(0)# Скрость черепашки
+start = 0
+#Начальная позицияотрисовки
+start_x = 0
+start_y = -50
+#Количество оборнотов
+MIN = 7
+MAX = 100
+answer = ''
+
 def gotoxy(x,y):
     turtle.penup()
     turtle.goto(x,y)
@@ -15,45 +24,46 @@ def draw_circle(r,color):
     turtle.begin_fill()
     turtle.circle(r)
     turtle.end_fill()
-
-# Скрость черепашки
-turtle.speed(0)
-start = 0
-turtle.goto(0,0)
-turtle.circle(80)
-gotoxy(0,160)
-draw_circle(5,'red')
-
-# Угол фи
-phi = 360 / 7
-#Радиус новых окружностей
-r = 50
-for i in range(start,7):# Тригонометрические функцииповторяются внезависимости от числа итераций 
+    
+def draw_pistol(base_x,base_y):
+    #основной круг
+    gotoxy(base_x,base_y)
+    turtle.circle(80)
+    #мушка
+    gotoxy(base_x,base_y+160)
+    draw_circle(5,'red')
+    # Барабан
+    for i in range(start,7):# Тригонометрические функцииповторяются внезависимости от числа итераций 
         # Формала перевода градусов в радианы для вычисления
-        phi_rad = phi * i * math.pi / 180.0
+        phi_rad = PHI * i * math.pi / 180.0
         # Позиция перемещения пира в окружности
-        gotoxy(math.sin(phi_rad)* r,math.cos(phi_rad)* r + 60)
+        gotoxy(base_x+math.sin(phi_rad)* RAD,base_y+math.cos(phi_rad)* RAD + 60)
         turtle.circle(21)
 
-answer = turtle.textinput("Испытать удачу?","y/n")
-
-while answer != 'n':
+def rotate_pistol(base_x,base_y,start):
     #Формулы поворота в системе коардинат
     # Угол для синуса и косинуса наращиваем в цикле
-    for i in range(start,random.randrange(7,100)):# Тригонометрические функцииповторяются внезависимости от числа итераций 
+    for i in range(start,random.randrange(MIN,MAX)):# Тригонометрические функцииповторяются внезависимости от числа итераций 
         # Формала перевода градусов в радианы для вычисления
-        phi_rad = phi * i * math.pi / 180.0
+        phi_rad = PHI * i * math.pi / 180.0
         # Позиция перемещения пира в окружности
-        gotoxy(math.sin(phi_rad)* r,math.cos(phi_rad)* r + 60)
+        gotoxy(base_x+math.sin(phi_rad)* RAD,base_y+math.cos(phi_rad)* RAD + 60)
         turtle.circle(21)
         draw_circle(21,'brown')
         draw_circle(21,'white')
 
         
-    gotoxy(math.sin(phi_rad)* r,math.cos(phi_rad)* r + 60)
+    gotoxy(base_x+math.sin(phi_rad)* RAD,base_y+math.cos(phi_rad)* RAD + 60)
     draw_circle(21,'brown')
+    
+    return i % 7
+#----------------------------------------------------------------------------------------------------------------------------
+draw_pistol(start_x,start_y)
 
-    start = i % 7
+while answer != 'n':
+    answer = turtle.textinput("Испытать удачу?","y/n")
+    start = rotate_pistol(start_x,start_y,start)
+
     # Проверка места патрона
     if start == 0:
         gotoxy(-50,250)
@@ -62,6 +72,5 @@ while answer != 'n':
         gotoxy(-50,250)
         turtle.write("LUCKY GUY",font=("Arial", 18, 'normal'))
 
-    answer = turtle.textinput("Испытать удачу?","y/n")
     
     
